@@ -1,6 +1,15 @@
 body {
-  font-family: Arial, sans-serif;
-  background-color: #f2f2f2;
-  margin: 0;
-  padding: 0;
+  background-color: #994b4b71;
+  font-family: monospace;
+  margin: 30px;
+}
+
+input{
+  font-size: 25px;
+  font-family: monospace;
+}
+
+button{
+  font-size: 25px;
+  font-family: monospace;
 }
