@@ -21,7 +21,8 @@ function Dictionary() {
 
     const dictionaryApiUrl = `https://api.dictionaryapi.dev/api/v2/entries/en/${keyword}`;
     const photoApiUrl = `https://api.shecodes.io/images/v1/search?query=${keyword}&key=5ebcd9630afb5d06416o225d4t3b4a01`;
-I
+
+    
     axios
       .get(dictionaryApiUrl)
       .then((response) => {
@@ -32,6 +33,7 @@ I
         const collectedSynonyms = new Set();
         const filteredMeanings = [];
 
+        
         allowedCategories.forEach((category) => {
           const meaningsOfCategory = data.filter(
             (m) => m.partOfSpeech === category
@@ -53,6 +55,7 @@ I
           }
         });
 
+        
         setPhonetics(entry.phonetics || []);
         setMeanings(filteredMeanings);
         setSynonyms([...collectedSynonyms]);
@@ -60,6 +63,7 @@ I
       .catch(() => setError("Word not found or API error"))
       .finally(() => setLoading(false));
 
+    
     axios
       .get(photoApiUrl)
       .then((response) => {
@@ -84,7 +88,7 @@ I
     loading && React.createElement("p", null, "Loading..."),
     error && React.createElement("p", { style: { color: "red" } }, error),
 
-
+  
     phonetics.length > 0 &&
       React.createElement(
         "div",
@@ -104,6 +108,7 @@ I
         )
       ),
 
+    
     meanings.length > 0 &&
       React.createElement(
         "div",
@@ -125,7 +130,7 @@ I
         )
       ),
 
-  
+    
     synonyms.length > 0 &&
       React.createElement(
         "div",
@@ -134,6 +139,7 @@ I
         React.createElement("p", null, synonyms.join(", "))
       ),
 
+    
     photos.length > 0 &&
       React.createElement(
         "div",
@@ -152,8 +158,6 @@ I
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(React.createElement(Dictionary));
-
-
 
 
 
