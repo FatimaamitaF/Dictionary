@@ -4,21 +4,59 @@ body {
   margin: 30px;
 }
 
-input{
+input {
   font-size: 25px;
   font-family: monospace;
 }
 
-button{
+button {
   font-size: 25px;
   font-family: monospace;
+  cursor: pointer;
 }
 
-div{
+div {
   font-size: large;
 }
 
 .definition-block {
   margin-bottom: 16px;
+  padding: 12px;
+  background-color: #ffffffcc;
+  border-radius: 8px;
 }
 
+.definition-block em {
+  font-style: italic;
+  color: #555;
+}
+
+.synonyms-block,
+.phonetics-block,
+.photo-block {
+  margin-top: 20px;
+  padding: 12px;
+  background-color: #ffffffcc;
+  border-radius: 8px;
+}
+
+
+ul {
+  margin-top: 5px;
+  padding-left: 20px;
+}
+
+
+.photo-block img {
+  max-width: 300px;
+  width: 100%;    
+  height: auto;
+  border-radius: 8px;
+  margin-top: 10px;
+  display: block;
+}
+
+audio {
+  margin-top: 5px;
+  width: 100%;
+}
