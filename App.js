@@ -4,6 +4,7 @@ function Dictionary() {
   const [keyword, setKeyword] = useState("");
   const [meanings, setMeanings] = useState([]);
   const [synonyms, setSynonyms] = useState([]);
+  const [phonetics, setPhonetics] = useState([]); 
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
 
@@ -14,30 +15,32 @@ function Dictionary() {
     setError(null);
     setMeanings([]);
     setSynonyms([]);
+    setPhonetics([]);
 
     const apiUrl = `https://api.dictionaryapi.dev/api/v2/entries/en/${keyword}`;
 
     axios
       .get(apiUrl)
       .then((response) => {
-        const data = response.data[0].meanings;
+        const entry = response.data[0];
+        const data = entry.meanings;
 
         const allowedCategories = ["noun", "verb", "adjective"];
         const collectedSynonyms = new Set();
         const filteredMeanings = [];
 
-        // Für jede erlaubte Kategorie: Definitionen + Synonyme sammeln
+   
+        setPhonetics(entry.phonetics || []);
+
+ 
         allowedCategories.forEach((category) => {
           const meaningsOfCategory = data.filter(m => m.partOfSpeech === category);
           if (meaningsOfCategory.length > 0) {
             const definitions = [];
             meaningsOfCategory.forEach(m => {
-              // Synonyme direkt auf Ebene "meaning"
               if (m.synonyms) {
                 m.synonyms.forEach(syn => collectedSynonyms.add(syn));
               }
-
-              // Definitionen & deren Synonyme
               m.definitions.forEach(def => {
                 definitions.push(def.definition);
                 if (def.synonyms) {
@@ -75,6 +78,28 @@ function Dictionary() {
     React.createElement("button", { onClick: handleSearch }, "Search"),
     loading && React.createElement("p", null, "Loading..."),
     error && React.createElement("p", { style: { color: "red" } }, error),
+
+    // 👇 phonetics rendern
+    phonetics.length > 0 &&
+      React.createElement(
+        "div",
+        { className: "phonetics-block" },
+        React.createElement("h2", null, "Phonetics:"),
+        ...phonetics.map((p, i) =>
+          React.createElement(
+            "div",
+            { key: i },
+            p.text && React.createElement("p", null, p.text),
+            p.audio &&
+              React.createElement(
+                "audio",
+                { controls: true, src: p.audio },
+                "Your browser does not support the audio element."
+              )
+          )
+        )
+      ),
+
     meanings.length > 0 &&
       React.createElement(
         "div",
@@ -107,6 +132,8 @@ function Dictionary() {
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(React.createElement(Dictionary));
+
+
 
 
 
