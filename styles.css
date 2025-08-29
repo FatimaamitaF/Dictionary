@@ -13,3 +13,12 @@ button{
   font-size: 25px;
   font-family: monospace;
 }
+
+div{
+  font-size: large;
+}
+
+.definition-block {
+  margin-bottom: 16px;
+}
+
